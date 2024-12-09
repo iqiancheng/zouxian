@@ -5,12 +5,13 @@
 本文档提供了关于 Zouxian 配置文件的详细信息。该配置文件旨在为中国版 Mac 型号启用 Apple Intelligence 和 Xcode LLM 功能。Zouxian 提供两种安装方式：直接使用安装脚本或通过配置文件进行安装。
 
 ## 2. 安装说明
+基于macOS系统15.1及以上版本，如果低于15.1版本，请通过App Store升级系统或通过 [Direct installer InstallAssistant.pkg](https://www.iclarified.com/94896/where-to-download-macos-sequoia) 升级系统。
 
 ### 2.1 使用安装脚本（推荐方式）
 
 1. **下载项目文件**：
-   - 确保 install.sh、zouxian.sh 和 cat.me0w.zouxian.plist 都在同一目录下
-   - 确保 install.sh 有执行权限（755）
+   - 确保 `install.sh`、`zouxian.sh` 和 `cat.me0w.zouxian.plist` 都在同一目录下
+   - 确保 `install.sh` 有执行权限（755）
 
 2. **执行安装**：
    ```bash
@@ -26,10 +27,10 @@
 如果由于某些原因无法直接执行安装脚本，可以使用配置文件方式安装：
 
 1. **准备配置文件**：
-   - 下载 zouxian.mobileconfig 文件
+   - 下载 `zouxian.mobileconfig` 文件
 
 2. **安装配置文件**：
-   - 双击 zouxian.mobileconfig 文件
+   - 双击 `zouxian.mobileconfig` 文件
    - 按照系统提示完成安装
    - 系统会自动执行必要的安装步骤
 
