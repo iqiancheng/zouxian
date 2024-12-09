@@ -1,86 +1,57 @@
-# zouxian 走线
+# Zouxian 配置文件文档
 
-中文版请见[这里](https://github.com/CatMe0w/zouxian/blob/master/README_zh.md)。
+## 1. 简介
 
-Apple restricted the access to Apple Intelligence and Xcode LLM (Predictive Code Completion) feature on China models of Mac. That is, if you are using a Mac bought in China, even if you are not in China, you will not be able to use Apple Intelligence or Xcode Predictive Code Completion.
+本文档提供了关于 Zouxian 配置文件的详细信息。该配置文件旨在为中国版 Mac 型号启用 Apple Intelligence 和 Xcode LLM 功能。Zouxian 提供两种安装方式：直接使用安装脚本或通过配置文件进行安装。
 
-If you are unfortunate to be in this situation, now it is time take your Mac on a journey of _[Zouxian](https://en.wikipedia.org/wiki/Zouxian_(phenomenon))_.
+## 2. 安装说明
 
----
+### 2.1 使用安装脚本（推荐方式）
 
-Persistent solution after rebooting, based on [Cyandev's guide](https://gist.github.com/unixzii/6f25be1842399022e16ad6477a304286).
+1. **下载项目文件**：
+   - 确保 install.sh、zouxian.sh 和 cat.me0w.zouxian.plist 都在同一目录下
+   - 确保 install.sh 有执行权限（755）
 
-## Version table
+2. **执行安装**：
+   ```bash
+   sudo ./install.sh
+   ```
 
-### Apple Intelligence
+3. **验证安装**：
+   - 安装脚本会自动执行验证步骤
+   - 检查输出日志确认安装成功
 
-| From                   | To                     |                                          |
-| ---------------------- | ---------------------- | ---------------------------------------- |
-| Macintosh System 1     | 15.0 Beta 4 (24A5298h) | No Apple Intelligence available          |
-| 15.1 Beta 1 (24B5009l) | 15.1 Beta 1 (24B5009l) | Supported (requires `zouxian` >= v0.2.0) |
+### 2.2 使用配置文件安装（备选方式）
 
-### Xcode LLM (Xcode Predictive Code Completion)
+如果由于某些原因无法直接执行安装脚本，可以使用配置文件方式安装：
 
-| From                   | To                     |                        |
-| ---------------------- | ---------------------- | ---------------------- |
-| Macintosh System 1     | 14.6 (23G80)           | No Xcode LLM available |
-| 15.0 Beta 1 (24A5264n) | 15.1 Beta 1 (24B5009l) | Supported              |
+1. **准备配置文件**：
+   - 下载 zouxian.mobileconfig 文件
 
-## Prerequisites
+2. **安装配置文件**：
+   - 双击 zouxian.mobileconfig 文件
+   - 按照系统提示完成安装
+   - 系统会自动执行必要的安装步骤
 
-- SIP debugging restrictions are disabled (via `csrutil enable --without debug` command in recovery mode).
-- For Apple Intelligence: A non-China Apple ID signed in, region set to the United States, and language set to English (US).
-- For Xcode Predictive Code Completion: Xcode is installed and run at least once.
+## 3. 重要注意事项
 
-> [!NOTE]  
-> No need to install Xcode if you only want to use Apple Intelligence.
+使用 Zouxian 时，请注意以下几点：
 
-## Disclaimer
+1. **系统完整性保护（SIP）**：在安装之前，必须在恢复模式下手动禁用 SIP。
 
-Disabling SIP can cause some unknown effect. **Please use with caution.**
+2. **管理员权限**：无论使用哪种安装方式，都需要 Mac 的管理员权限。
 
-## Install
+## 4. 故障排除
 
-### Via [Homebrew](https://brew.sh)
+如果遇到问题：
 
-```shell
-brew install catme0w/tap/zouxian
-sudo brew services start zouxian
-```
+1. 使用控制台应用检查系统日志是否有任何错误消息。
+2. 验证 SIP 是否已正确禁用。
+3. 确保所有必需文件都在正确的位置。
+4. 如果更改没有生效，请尝试重新启动系统。
 
-> Check out [the formula](https://github.com/CatMe0w/homebrew-tap/blob/master/Formula/zouxian.rb) if you're interested
+## 5. 支持
 
-### Manually
+如需其他支持或报告问题，请访问 Zouxian 项目存储库或直接联系维护人员。
 
-```shell
-sudo curl https://raw.githubusercontent.com/CatMe0w/zouxian/master/zouxian.sh -o /usr/local/bin/zouxian
-sudo chmod +x /usr/local/bin/zouxian
-sudo curl https://raw.githubusercontent.com/CatMe0w/zouxian/master/cat.me0w.zouxian.plist -o /Library/LaunchDaemons/cat.me0w.zouxian.plist
-sudo launchctl load -w /Library/LaunchDaemons/cat.me0w.zouxian.plist
-```
-
-## Uninstall
-
-### Via [Homebrew](https://brew.sh)
-
-```shell
-sudo brew services stop zouxian
-sudo rm -rf /opt/homebrew/Cellar/zouxian
-brew untap catme0w/tap
-```
-
-### Manually
-
-```shell
-sudo launchctl unload -w /Library/LaunchDaemons/cat.me0w.zouxian.plist
-sudo rm /Library/LaunchDaemons/cat.me0w.zouxian.plist
-sudo rm /usr/local/bin/zouxian
-```
-
-## Acknowledgement
-
-Thanks for those who make this possible together: [Cyandev](https://twitter.com/unixzii), [Lakr233](https://twitter.com/Lakr233), [Sou1gh0st](https://twitter.com/Sou1gh0st), Yuriko.
-
-## License
-
-MIT License
+请注意，在执行任何安装步骤之前，请确保您了解其对系统的影响。建议在进行操作前备份重要数据。
