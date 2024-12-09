@@ -1,32 +1,42 @@
 #!/bin/bash
 
-# Check if running with root privileges
+# Ensure script is run with sudo
 if [ "$EUID" -ne 0 ]; then 
-    echo "Please run this script with sudo"
+    echo "请使用 sudo 运行此脚本"
+    echo "正确用法: sudo curl -fsSL https://raw.githubusercontent.com/iqiancheng/zouxian/HEAD/install_remote.sh | bash"
     exit 1
 fi
 
-# Get absolute path of script directory
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+# Create temporary directory
+TMP_DIR=$(mktemp -d)
+trap 'rm -rf "$TMP_DIR"' EXIT
 
-# Define target directory and script path
+# Define GitHub repository information
+REPO_URL="https://raw.githubusercontent.com/iqiancheng/zouxian/HEAD"
+
+# Download required files
+echo "正在下载所需文件..."
+curl -fsSL "${REPO_URL}/zouxian.sh" -o "${TMP_DIR}/zouxian.sh" || {
+    echo "下载 zouxian.sh 失败"
+    exit 1
+}
+curl -fsSL "${REPO_URL}/cat.me0w.zouxian.plist" -o "${TMP_DIR}/cat.me0w.zouxian.plist" || {
+    echo "下载 cat.me0w.zouxian.plist 失败"
+    exit 1
+}
+
+# Rest of the installation script remains the same, but use TMP_DIR instead of SCRIPT_DIR
 TARGET_DIR="/Library/LaunchDaemons"
 TARGET_SCRIPT="${TARGET_DIR}/zouxian.sh"
 
 # Copy zouxian.sh to target directory
-cp "${SCRIPT_DIR}/zouxian.sh" "${TARGET_SCRIPT}"
+cp "${TMP_DIR}/zouxian.sh" "${TARGET_SCRIPT}"
 
 # Update the path in plist file
-sed -i '' "s|${SCRIPT_DIR}/zouxian.sh|${TARGET_SCRIPT}|g" "${SCRIPT_DIR}/cat.me0w.zouxian.plist"
-sed -i '' "s|/path/to/zouxian.sh|${TARGET_SCRIPT}|g" "${SCRIPT_DIR}/cat.me0w.zouxian.plist"
-
-# Print paths for verification
-echo "Script directory: ${SCRIPT_DIR}"
-echo "Target script path: ${TARGET_SCRIPT}"
-echo "Plist destination: ${TARGET_DIR}/cat.me0w.zouxian.plist"
+sed -i '' "s|/path/to/zouxian.sh|${TARGET_SCRIPT}|g" "${TMP_DIR}/cat.me0w.zouxian.plist"
 
 # Copy plist file to LaunchDaemons
-cp "${SCRIPT_DIR}/cat.me0w.zouxian.plist" "${TARGET_DIR}/"
+cp "${TMP_DIR}/cat.me0w.zouxian.plist" "${TARGET_DIR}/"
 
 # Set correct permissions
 chown root:wheel "${TARGET_DIR}/cat.me0w.zouxian.plist"
