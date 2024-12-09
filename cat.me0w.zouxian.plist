@@ -6,11 +6,18 @@
     <string>cat.me0w.zouxian</string>
     <key>ProgramArguments</key>
     <array>
-        <string>/usr/local/bin/zouxian</string>
+        <string>/bin/sh</string>
+        <string>/Library/LaunchDaemons/zouxian.sh</string>
     </array>
     <key>RunAtLoad</key>
     <true/>
     <key>KeepAlive</key>
-    <false/>
+    <true/>
+    <key>UserName</key>
+    <string>root</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/cat.me0w.zouxian.err</string>
+    <key>StandardOutPath</key>
+    <string>/tmp/cat.me0w.zouxian.out</string>
 </dict>
 </plist>
