@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
     <key>Label</key>
     <string>cat.me0w.zouxian</string>
     <key>ProgramArguments</key>
     <array>
-        <string>/bin/sh</string>
-        <string>/Library/LaunchDaemons/zouxian.sh</string>
+        <string>/bin/bash</string>
+<string>/usr/local/bin/zouxian.sh</string>
     </array>
     <key>RunAtLoad</key>
     <true/>
     <key>KeepAlive</key>
-    <true/>
-    <key>UserName</key>
-    <string>root</string>
+    <dict>
+        <key>SuccessfulExit</key>
+        <false/>
+        <key>Crashed</key>
+        <true/>
+    </dict>
+    <key>ThrottleInterval</key>
+    <integer>60</integer>
     <key>StandardErrorPath</key>
-    <string>/tmp/cat.me0w.zouxian.err</string>
+    <string>/var/log/zouxian/error.log</string>
     <key>StandardOutPath</key>
-    <string>/tmp/cat.me0w.zouxian.out</string>
+    <string>/var/log/zouxian/output.log</string>
+    <key>WorkingDirectory</key>
+    <string>/usr/local/bin</string>
 </dict>
 </plist>
